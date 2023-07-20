@@ -1,0 +1,27 @@
+﻿@model IList<AcademyWebEF.BusinessEntities.Student>
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <h2>Sutdents list</h2>
+        <table class="table table condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var student in Model)
+                {
+                    <tr>
+                        <td>@student.StudentName</td>
+                        <td>@student.RollNo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
