@@ -5,3 +5,6 @@ Scaffold-DbContext -Connection "Data Source=MICROCARE\MSSQLSERVER01;Initial Cata
 
 // SQL SERVER AUTHENTICATION
 Scaffold-DbContext -Connection "Data Source=MICROCARE\MSSQL2019;Initial Catalog=ECommerceApp;User ID=sa;password=sa@2019;TrustServerCertificate=True;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -context ECommerceDbContext -Project BusinessEntities
+
+
+-force
