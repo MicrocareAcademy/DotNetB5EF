@@ -1,0 +1,39 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model AcademyWebEF.Models.StudentEditorModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <form 
+                method="post" 
+                asp-controller="Student" 
+                asp-action="Create" >
+
+                <label asp-for="StudentName"></label>
+                <input class="form-control" asp-for="StudentName" />
+
+                <label asp-for="RollNo"></label>
+                <input class="form-control" asp-for="RollNo" />
+                
+                <label asp-for="DateOfBirth"></label>
+                <input class="form-control" asp-for="DateOfBirth" />
+
+                <label asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" />
+
+                <label asp-for="Mobile"></label>
+                <input class="form-control" asp-for="Mobile" />
+
+                
+                <button type="submit" style="margin-top:20px;" class="btn btn-primary">Create Student</button>
+
+            </form>
+        </div>
+        <div class="col-6"></div>
+    </div>
+ </div>
