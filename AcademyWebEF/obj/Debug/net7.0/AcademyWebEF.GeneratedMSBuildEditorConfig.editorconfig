@@ -40,8 +40,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/Microcare-Academy/Courses/Batches/DotNet4/AcademyApp/AcademyWebEF/Views/Student/EditStudent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxFZGl0U3R1ZGVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/Microcare-Academy/Courses/Batches/DotNet4/AcademyApp/AcademyWebEF/Views/Student/StudentEditor.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxTdHVkZW50RWRpdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Microcare-Academy/Courses/Batches/DotNet4/AcademyApp/AcademyWebEF/Views/Student/StudentRO.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxTdHVkZW50Uk8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Microcare-Academy/Courses/Batches/DotNet4/AcademyApp/AcademyWebEF/Views/Student/StudentsList.cshtml]

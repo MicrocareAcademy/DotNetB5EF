@@ -43,5 +43,60 @@ namespace AcademyWebEF
 
             return RedirectToAction("StudentsList");
         }
+
+        [HttpGet]
+        public IActionResult EditStudent(int studentId)
+        {
+            var dbContext = new AcademyDbContext();
+
+            // get student obj
+            var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
+
+            // create an object of model class
+            // and bind the data from student obj
+            var editorModel = new StudentEditorModel();
+            editorModel.StudentName = studentObj.StudentName;
+            editorModel.RollNo = studentObj.RollNo;
+            editorModel.DateOfBirth = studentObj.Dob;
+            editorModel.Email = studentObj.Email;
+            editorModel.Mobile = studentObj.MobileNo;
+            editorModel.StudentID = studentObj.StudentId;
+
+            return View(editorModel);
+        }
+
+        [HttpPost]
+        public IActionResult Update(StudentEditorModel editorModel)
+        {
+            var dbContext = new AcademyDbContext();
+
+            //fetching the student obj from database
+            var studentObj = dbContext.Students.Where(p => p.StudentId == editorModel.StudentID).FirstOrDefault();
+
+            // updating the details of existing student
+            studentObj.StudentName = editorModel.StudentName;
+            studentObj.RollNo = editorModel.RollNo;
+            studentObj.Dob = editorModel.DateOfBirth;
+            studentObj.MobileNo = editorModel.Mobile;
+            studentObj.Email = editorModel.Email;
+
+            dbContext.Students.Update(studentObj); // update student obj
+
+            dbContext.SaveChanges(); // generate update statement
+
+            return RedirectToAction("StudentsList");
+        }
+
+        [HttpGet]
+        public ViewResult StudentRO(int studentId)
+        {
+            var dbContext = new AcademyDbContext();
+
+            // get student obj
+            var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
+
+            return View(studentObj);
+        }
+
     }
 }

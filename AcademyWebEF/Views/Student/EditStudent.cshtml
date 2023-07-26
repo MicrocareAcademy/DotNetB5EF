@@ -9,17 +9,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <form 
-                method="post" 
-                asp-controller="Student" 
-                asp-action="Create" >
+            <form method="post"
+                  asp-controller="Student"
+                  asp-action="Update">
 
                 <label asp-for="StudentName"></label>
-                <input class="form-control" asp-for="StudentName" />
+                <input class="form-control" asp-for="StudentName"/>
 
                 <label asp-for="RollNo"></label>
                 <input class="form-control" asp-for="RollNo" />
-                
+
                 <label asp-for="DateOfBirth"></label>
                 <input class="form-control" asp-for="DateOfBirth" />
 
@@ -29,17 +28,17 @@
                 <label asp-for="Mobile"></label>
                 <input class="form-control" asp-for="Mobile" />
 
-                <input type="hidden" id="StudentID" name="StudentID" value="@Model.StudentID"/>
+                <input type="hidden" id="StudentID" name="StudentID" value="@Model.StudentID" />
 
                 <div style="margin-top:20px;">
                     <a href="@Url.Action("StudentsList","Student")" style="margin-right:5px;" class="btn btn-secondary">Back</a>
 
-                    <button type="submit"  class="btn btn-primary">Create Student</button>
+                    <button type="submit" class="btn btn-primary">Update Student</button>
                 </div>
-                
+
 
             </form>
         </div>
         <div class="col-6"></div>
     </div>
- </div>
+</div>

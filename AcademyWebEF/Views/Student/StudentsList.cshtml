@@ -5,12 +5,17 @@
 
 <div class="container-fluid">
     <div class="row">
-        <h2>Sutdents list</h2>
+        <h2>Sutdents list <a href="@Url.Action("StudentEditor","Student")" style="float:right;" class="btn btn-primary">Add</a></h2>
         <table class="table table condensed">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Roll No</th>
+                    <th>Date Of Birth</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th></th>
+
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +24,10 @@
                     <tr>
                         <td>@student.StudentName</td>
                         <td>@student.RollNo</td>
+                        <td>@student.Dob.ToString("dd/MM/yyyy")</td>
+                        <td>@student.Email</td>
+                        <td>@student.MobileNo</td>
+                        <td><a href="@Url.Action("StudentRO","Student",new{studentId = student.StudentId})">View</a> | <a href="@Url.Action("EditStudent","Student",new{studentId = student.StudentId})">Edit</a></td>
                     </tr>
                 }
             </tbody>
