@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <h2>Sutdents list <a href="@Url.Action("StudentEditor","Student")" style="float:right;" class="btn btn-primary">Add</a></h2>
-        <table class="table table condensed">
+        <table class="table table condensed" id="studentsList">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -19,18 +19,60 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var student in Model)
+                @foreach (var student in Model)
                 {
-                    <tr>
+                    <tr id="@student.StudentId">
                         <td>@student.StudentName</td>
                         <td>@student.RollNo</td>
                         <td>@student.Dob.ToString("dd/MM/yyyy")</td>
                         <td>@student.Email</td>
                         <td>@student.MobileNo</td>
-                        <td><a href="@Url.Action("StudentRO","Student",new{studentId = student.StudentId})">View</a> | <a href="@Url.Action("EditStudent","Student",new{studentId = student.StudentId})">Edit</a></td>
+                        <td>
+                            <a href="@Url.Action("StudentRO","Student",new{studentId = student.StudentId})">View</a> |
+                            <a href="@Url.Action("EditStudent","Student",new{studentId = student.StudentId})">Edit</a> |
+                            <a href="#" onclick="deleteStudent(@student.StudentId)">Delete</a>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+    function deleteStudent(studentId) {
+
+        var deleteStudentUrl = "https://localhost:7202/Student/DeleteStudent";
+
+        var deleteStudentData = { studId: studentId };
+
+        // Send the JSON data using $.post()
+        $.post(deleteStudentUrl,deleteStudentData,
+            function (response) {
+
+              // Success callback
+              $("#studentsList").find("#" + studentId).remove();
+
+            }, 'json')
+            .fail(function (xhr, status, error) {
+                // Error callback
+                console.error('Error:', error);
+            });
+
+        //$.post({
+        //    url: deleteStudentUrl,
+        //    data: deleteStudentData, // Convert the JavaScript object to a JSON string
+        //    contentType: 'application/json', // Set the content type to indicate JSON data
+        //    dataType: 'json', // Expected data type of the response from the server
+        //    success: function (response) {
+        //        // This function will be executed when the server responds successfully
+        //        $("#studentsList").find("#" + studentId).remove();
+        //    },
+        //    error: function (xhr, status, error) {
+
+        //        // This function will be executed if an error occurs during the request
+        //        //console.error('Error:', error);
+        //    }
+        //});
+    }
+</script>

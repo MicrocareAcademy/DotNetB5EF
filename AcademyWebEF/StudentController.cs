@@ -25,27 +25,37 @@ namespace AcademyWebEF
         [HttpPost]
         public IActionResult Create(StudentEditorModel editorModel)
         {
-            //model binding - automatically
+            if(ModelState.IsValid)
+            {
+                //model binding - automatically
 
-            // create an object of Student Entity Class 
-            Student student = new Student();
-            student.StudentName = editorModel.StudentName;
-            student.RollNo = editorModel.RollNo;
-            student.Dob = editorModel.DateOfBirth;
-            student.MobileNo = editorModel.Mobile;
-            student.Email = editorModel.Email;
+                // create an object of Student Entity Class 
+                Student student = new Student();
+                student.StudentName = editorModel.StudentName;
+                student.RollNo = editorModel.RollNo;
+                student.Dob = editorModel.DateOfBirth;
+                student.MobileNo = editorModel.Mobile;
+                student.Email = editorModel.Email;
 
-            // give this object to DBContext  to save the data in the database
-            var dbContext = new AcademyDbContext();
-            dbContext.Students.Add(student);
+                // give this object to DBContext  to save the data in the database
+                var dbContext = new AcademyDbContext();
+                dbContext.Students.Add(student);
 
-            dbContext.SaveChanges(); // generate insert statement
+                dbContext.SaveChanges(); // generate insert statement
 
-            return RedirectToAction("StudentsList");
+                return RedirectToAction("StudentsList");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Student record not created, please fix errors and save again!");
+
+                return View("StudentEditor", editorModel);
+            }
+
         }
 
         [HttpGet]
-        public IActionResult EditStudent(int studentId)
+        public IActionResult EditStudent(int studentId) // binding primitive type
         {
             var dbContext = new AcademyDbContext();
 
@@ -66,25 +76,34 @@ namespace AcademyWebEF
         }
 
         [HttpPost]
-        public IActionResult Update(StudentEditorModel editorModel)
+        public IActionResult Update(StudentEditorModel editorModel) // binding complex type
         {
-            var dbContext = new AcademyDbContext();
+            if (ModelState.IsValid)
+            {
+                var dbContext = new AcademyDbContext();
 
-            //fetching the student obj from database
-            var studentObj = dbContext.Students.Where(p => p.StudentId == editorModel.StudentID).FirstOrDefault();
+                //fetching the student obj from database
+                var studentObj = dbContext.Students.Where(p => p.StudentId == editorModel.StudentID).FirstOrDefault();
 
-            // updating the details of existing student
-            studentObj.StudentName = editorModel.StudentName;
-            studentObj.RollNo = editorModel.RollNo;
-            studentObj.Dob = editorModel.DateOfBirth;
-            studentObj.MobileNo = editorModel.Mobile;
-            studentObj.Email = editorModel.Email;
+                // updating the details of existing student
+                studentObj.StudentName = editorModel.StudentName;
+                studentObj.RollNo = editorModel.RollNo;
+                studentObj.Dob = editorModel.DateOfBirth;
+                studentObj.MobileNo = editorModel.Mobile;
+                studentObj.Email = editorModel.Email;
 
-            dbContext.Students.Update(studentObj); // update student obj
+                dbContext.Students.Update(studentObj); // update student obj
 
-            dbContext.SaveChanges(); // generate update statement
+                dbContext.SaveChanges(); // generate update statement
 
-            return RedirectToAction("StudentsList");
+                return RedirectToAction("StudentsList");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Student record not updated, please fix errors and save again!");
+
+                return View("EditStudent", editorModel);
+            }
         }
 
         [HttpGet]
@@ -96,6 +115,20 @@ namespace AcademyWebEF
             var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
 
             return View(studentObj);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteStudent(int studId)
+        {
+            var dbContext = new AcademyDbContext();
+
+            // get student obj
+            var studentObj = dbContext.Students.Where(p => p.StudentId == studId).FirstOrDefault();
+
+            dbContext.Students.Remove(studentObj);
+            dbContext.SaveChanges();
+
+            return Json(true);
         }
 
     }

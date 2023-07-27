@@ -1,12 +1,33 @@
-﻿namespace AcademyWebEF.Models
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+namespace AcademyWebEF.Models
 {
     public class StudentEditorModel
     {
+        [Required(ErrorMessage = "Please enter name for the student")]
+        [StringLength(50)]
+        [Display(Name = "Student Name")]
         public string StudentName { get; set; }
+
+        [Required(ErrorMessage = "Please enter roll no")]
+        [StringLength(20)]
+        [Display(Name = "Roll No")]
         public string RollNo { get; set; }
-        public string Mobile { get; set; }
-        public string Email { get; set; }
+
+        [Display(Name = "Mobile No")]
+        [StringLength(20)]
+        public string? Mobile { get; set; }
+
+        [EmailAddress]
+        [StringLength(20)]
+        public string? Email { get; set; }
+
+        [Required(ErrorMessage = "Please enter date of birth")]
+        [Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
+
+        [HiddenInput]
         public int StudentID { get; set; }
     }
 }

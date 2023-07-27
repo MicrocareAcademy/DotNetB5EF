@@ -13,22 +13,38 @@
                   asp-controller="Student"
                   asp-action="Update">
 
-                <label asp-for="StudentName"></label>
-                <input class="form-control" asp-for="StudentName"/>
+                <h2>Update Student</h2>
+                <hr />
 
-                <label asp-for="RollNo"></label>
-                <input class="form-control" asp-for="RollNo" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <label asp-for="DateOfBirth"></label>
-                <input class="form-control" asp-for="DateOfBirth" />
+                <div class="form-group">
+                    <label asp-for="StudentName"></label>
+                    <input class="form-control" asp-for="StudentName" />
+                    <span asp-validation-for="StudentName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RollNo"></label>
+                    <input class="form-control" asp-for="RollNo" />
+                    <span asp-validation-for="RollNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBirth"></label>
+                    <input class="form-control" asp-for="DateOfBirth" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input class="form-control" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mobile"></label>
+                    <input class="form-control" asp-for="Mobile" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
 
-                <label asp-for="Email"></label>
-                <input class="form-control" asp-for="Email" />
-
-                <label asp-for="Mobile"></label>
-                <input class="form-control" asp-for="Mobile" />
-
-                <input type="hidden" id="StudentID" name="StudentID" value="@Model.StudentID" />
+                <input asp-for="StudentID" />
 
                 <div style="margin-top:20px;">
                     <a href="@Url.Action("StudentsList","Student")" style="margin-right:5px;" class="btn btn-secondary">Back</a>

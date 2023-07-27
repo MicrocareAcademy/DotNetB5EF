@@ -1,26 +1,50 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model AcademyWebEF.Models.LoginModel
+
+@{
     Layout = "_LoginLayout";
 }
 
+<style type="text/css">
+
+    .form-check{
+        padding-left : 0em !important;
+    }
+
+    .form-group{
+        margin-top:15px !important;
+    }
+
+</style>
 <div class="container-fluid">
     <div class="row">
-        
-        <form style="margin-top:200px;">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            @*<button type="submit" class="btn btn-primary">Submit</button>*@
-            <a href="@Url.Action("SubmitLogin","Account")" class="btn btn-primary">Submit</a>
-        </form>
+        <div style="position: absolute;top: 50%; margin-top: -200px;width: 50%;">
+            <form
+                  method="post" 
+                  asp-controller="Account" 
+                  asp-action="SubmitLogin">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input asp-for="RememberMe" /> <label asp-for="RememberMe"></label>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <button type="submit" class="btn btn-primary" style="float:right;">Login</button>
+                </div>
+
+            </form>
+         </div>
     </div>
-</div>
+    </div>
