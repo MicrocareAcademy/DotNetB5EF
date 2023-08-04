@@ -13,6 +13,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <style type="text/css">
+    .f-r{
+        float:right;
+    }   
+    .mt-20{
+        margin-top:20px;
+    }
+    </style>
 </head>
 <body>
     <header>
@@ -32,7 +40,10 @@
                             <a class="nav-link text-dark" 
                             href="@Url.Action(action:"StudentsList",controller:"Student")">Students</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               href="@Url.Action(action:"CoursesList",controller:"Course")">Courses</a>
+                        </li>
                         <li class="nav-item" style="margin-left:auto;">
                             <a class="btn btn-danger" style="color:white !important;" href="@Url.Action("Logout","Account")">Logout</a>
                         </li>

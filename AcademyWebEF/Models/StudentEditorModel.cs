@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace AcademyWebEF.Models
 {
@@ -29,5 +31,12 @@ namespace AcademyWebEF.Models
 
         [HiddenInput]
         public int StudentID { get; set; }
+
+        [Required(ErrorMessage = "Please select a course")]
+        [Display(Name ="Course")]
+        public int CourseID { get; set; }
+
+        [IgnoreDataMember]
+        public List<SelectListItem> Courses { get; set; }
     }
 }

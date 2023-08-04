@@ -1,0 +1,60 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model AcademyWebEF.Models.CourseEditorModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+.form-group{
+    margin-top:20px !important;
+}   
+</style>
+
+<h2>Course Editor</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Course" asp-action="SaveCourse">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="CourseTitle"></label>
+                <input asp-for="CourseTitle" class="form-control" />
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DurationInDays"></label>
+                <input asp-for="DurationInDays" class="form-control" />
+                <span asp-validation-for="DurationInDays" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="IsActive" />
+                <label asp-for="IsActive"></label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

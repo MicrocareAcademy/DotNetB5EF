@@ -44,6 +44,7 @@ public partial class AcademyDbContext : DbContext
 
             entity.HasIndex(e => e.RollNo, "UQ__Students__7886D5A108CDBD82").IsUnique();
 
+            entity.Property(e => e.CourseId).HasColumnName("CourseID");
             entity.Property(e => e.Dob)
                 .HasColumnType("date")
                 .HasColumnName("DOB");
@@ -57,6 +58,10 @@ public partial class AcademyDbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.StudentName).HasMaxLength(100);
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Students)
+                .HasForeignKey(d => d.CourseId)
+                .HasConstraintName("FK__Students__Course__34C8D9D1");
         });
 
         OnModelCreatingPartial(modelBuilder);

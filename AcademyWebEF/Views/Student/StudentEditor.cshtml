@@ -44,6 +44,22 @@
                     <span asp-validation-for="Mobile" class="text-danger"></span>
                 </div>
 
+                <div class="form-group">
+                    @*<label>Courses</label>
+                    <select class="form-control" id="CourseID" name="CourseID">
+                        <option value="1">Dot Net Fullstack</option>
+                        <option value="2">Java full stack</option>
+                        <option value="3">AWS</option>
+                        <option value="4">DevOps</option>
+                        <option value="5">Software Testing</option>
+                    </select>*@
+
+                    <label asp-for="CourseID"></label>
+                    <select class="form-control" asp-for="CourseID" asp-items="Model.Courses"></select>
+                    <span asp-validation-for="CourseID" class="text-danger"></span>
+
+                </div>
+
                 <input asp-for="StudentID" />
                 @*<input type="hidden" id="StudentID" name="StudentID" value="@Model.StudentID"/>*@
 

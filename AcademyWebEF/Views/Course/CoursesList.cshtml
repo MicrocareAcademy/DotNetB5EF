@@ -1,11 +1,14 @@
 ﻿@model IList<AcademyWebEF.BusinessEntities.Course>
+
 @{
     Layout = "_Layout";
 }
 
 <div class="container-fluid">
     <div class="row">
-        <h2>Courses list</h2>
+        <h2>Courses list
+            <a href="@Url.Action("Create","Course")" class="f-r">Add Course</a>
+        </h2>
         <table class="table table condensed">
             <thead>
                 <tr>

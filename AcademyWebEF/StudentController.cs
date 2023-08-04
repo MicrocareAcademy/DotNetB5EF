@@ -1,6 +1,8 @@
 ﻿using AcademyWebEF.BusinessEntities;
 using AcademyWebEF.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AcademyWebEF
 {
@@ -10,7 +12,9 @@ namespace AcademyWebEF
         {
             var dbContext = new AcademyDbContext();
 
-            var students = dbContext.Students.ToList();
+            var students = dbContext.Students
+                                    .Include(p=>p.Course)
+                                    .ToList();
 
             return View(students);
         }
@@ -19,13 +23,36 @@ namespace AcademyWebEF
         public IActionResult StudentEditor()
         {
             var model = new StudentEditorModel();
+            model.Courses = new List<SelectListItem>();
+
+            var dbContext = new AcademyDbContext();
+            var courses = dbContext.Courses.ToList(); // we are getting list of course objects from DB
+
+            // we are looping through courses and will prepare an object of selectListItem and will
+            // add to model.Courses
+
+            model.Courses.Add(new SelectListItem { Value = null, Text = "--Select Course--" });
+
+            foreach (var course in courses)  
+            {
+                var courseTitle = $"{course.CourseTitle}/{course.Price} INR";
+
+                var courseItem = new SelectListItem { Value = course.CourseId.ToString(), 
+                                                       Text = courseTitle
+                                                    };
+
+                model.Courses.Add(courseItem);
+            }
+
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Create(StudentEditorModel editorModel)
         {
-            if(ModelState.IsValid)
+            ModelState.Remove("Courses");
+
+            if (ModelState.IsValid)
             {
                 //model binding - automatically
 
@@ -36,6 +63,7 @@ namespace AcademyWebEF
                 student.Dob = editorModel.DateOfBirth;
                 student.MobileNo = editorModel.Mobile;
                 student.Email = editorModel.Email;
+                student.CourseId = editorModel.CourseID;
 
                 // give this object to DBContext  to save the data in the database
                 var dbContext = new AcademyDbContext();
@@ -120,15 +148,22 @@ namespace AcademyWebEF
         [HttpPost]
         public JsonResult DeleteStudent(int studId)
         {
-            var dbContext = new AcademyDbContext();
+            try
+            {
+                var dbContext = new AcademyDbContext();
 
-            // get student obj
-            var studentObj = dbContext.Students.Where(p => p.StudentId == studId).FirstOrDefault();
+                // get student obj
+                var studentObj = dbContext.Students.Where(p => p.StudentId == studId).FirstOrDefault();
 
-            dbContext.Students.Remove(studentObj);
-            dbContext.SaveChanges();
+                dbContext.Students.Remove(studentObj);
+                dbContext.SaveChanges();
 
-            return Json(true);
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
         }
 
     }

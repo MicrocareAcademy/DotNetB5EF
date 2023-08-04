@@ -14,6 +14,7 @@
                     <th>Date Of Birth</th>
                     <th>Email</th>
                     <th>Mobile No</th>
+                    <th>Course</th>
                     <th></th>
 
                 </tr>
@@ -27,6 +28,7 @@
                         <td>@student.Dob.ToString("dd/MM/yyyy")</td>
                         <td>@student.Email</td>
                         <td>@student.MobileNo</td>
+                        <td>@student.Course.CourseTitle</td>
                         <td>
                             <a href="@Url.Action("StudentRO","Student",new{studentId = student.StudentId})">View</a> |
                             <a href="@Url.Action("EditStudent","Student",new{studentId = student.StudentId})">Edit</a> |
@@ -50,8 +52,16 @@
         $.post(deleteStudentUrl,deleteStudentData,
             function (response) {
 
-              // Success callback
-              $("#studentsList").find("#" + studentId).remove();
+              if(response)
+              {
+                    // Success callback
+                    $("#studentsList").find("#" + studentId).remove();
+              }
+              else
+              {
+                  alert("Fail to delete a student, please contact admin!");
+              }
+              
 
             }, 'json')
             .fail(function (xhr, status, error) {
