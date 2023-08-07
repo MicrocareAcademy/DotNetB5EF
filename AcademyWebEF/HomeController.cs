@@ -6,7 +6,9 @@ namespace AcademyWebEF
     {
         public IActionResult Dashboard()
         {
-            return View();
+            string userName = Request.Cookies["MyUserKey"];
+
+            return View("Dashboard",userName);
         }
     }
 }

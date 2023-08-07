@@ -20,6 +20,12 @@ namespace AcademyWebEF
                 // if we have user with user name and password, then user will be redirected to home page
                 // else we will show validation message
 
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddMinutes(1);
+                options.Secure = true;
+
+                Response.Cookies.Append("MyUserKey", model.Email, options);
+
                 return RedirectToAction("Dashboard", "Home");
             }
             else
