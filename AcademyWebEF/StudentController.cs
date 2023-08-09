@@ -1,11 +1,13 @@
 ﻿using AcademyWebEF.BusinessEntities;
 using AcademyWebEF.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcademyWebEF
 {
+    [Authorize]
     public class StudentController : Controller
     {
         public IActionResult StudentsList()

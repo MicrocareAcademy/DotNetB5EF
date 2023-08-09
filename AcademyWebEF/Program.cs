@@ -1,9 +1,21 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddSession(); // Enabling Sessions State Management Technique
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                 .AddCookie(options =>
+                 {
+                     options.LoginPath = "/Account/Login";
+                     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                     options.SlidingExpiration = true;
+                     options.AccessDeniedPath = "/Account/AccessDeniedPage";
+                 });
+
 
 var app = builder.Build();
 
@@ -26,6 +38,8 @@ app.MapControllerRoute(  // router patterns
    name: "default",
    pattern: "{controller=Account}/{action=Login}/{id?}"
 );
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
