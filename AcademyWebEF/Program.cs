@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                      options.LoginPath = "/Account/Login";
                      options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                      options.SlidingExpiration = true;
-                     options.AccessDeniedPath = "/Account/AccessDeniedPage";
+                     options.AccessDeniedPath = "/Account/AccessDenied";
                  });
 
 
@@ -50,6 +50,7 @@ app.MapControllerRoute(  // router patterns
 );
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
