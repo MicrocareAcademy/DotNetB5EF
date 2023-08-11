@@ -1,3 +1,4 @@
+using AcademyWebEF.BusinessEntities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,8 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddSession(); // Enabling Sessions State Management Technique
+// Enabling Sessions State Management Technique
+builder.Services.AddSession(); 
 
+// Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                  .AddCookie(options =>
                  {
@@ -16,6 +19,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                      options.AccessDeniedPath = "/Account/AccessDeniedPage";
                  });
 
+
+// Authorization
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(Roles.Admin, policy => policy.RequireRole(Roles.Admin));
+    options.AddPolicy(Roles.Student, policy => policy.RequireRole(Roles.Student));
+});
 
 var app = builder.Build();
 
@@ -40,7 +50,6 @@ app.MapControllerRoute(  // router patterns
 );
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapRazorPages();

@@ -8,30 +8,79 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-6">
-            <form>
-
-                <label>StudentName</label>
-                <label class="form-control">@Model.StudentName</label>
-
-                <label>Roll No</label>
-                <label class="form-control">@Model.RollNo</label>
-
-                <label>Date Of Birth</label>
-                <label class="form-control">@Model.Dob.ToString("dd/MM/yyyy")</label>
-
-                <label>Email</label>
-                <label class="form-control">@Model.Email</label>
-
-                <label>Mobile No</label>
-                <label class="form-control">@Model.MobileNo</label>
-
-                <div style="margin-top:20px;">
-                    <a href="@Url.Action("StudentsList","Student")" style="margin-right:5px;" class="btn btn-secondary">Back</a>
+        <div class="col-md-4">
+            <!-- Student Profile Card -->
+            <div class="card mb-4">
+                <img src="~/img/student_avator.jpg" class="card-img-top" alt="Student Avatar">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.StudentName</h5>
+                    <p class="card-text">Roll No: @Model.RollNo</p>
+                    <!-- Add other student info here -->
                 </div>
-
-            </form>
+            </div>
+            
         </div>
-        <div class="col-6"></div>
+        <div class="col-md-8">
+
+            <!-- Nav Tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="courses-tab" data-bs-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">Account</a>
+                </li>
+                <!-- Add more tabs as needed -->
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Overview Tab Pane -->
+                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                    <h3>Name</h3>
+                    <p>@Model.StudentName</p>
+                    <h3>Current Course</h3>
+                    <p>@Model.Course?.CourseTitle</p>
+                    <h3>Date Of Birth</h3>
+                    <p>@Model.Dob.ToString("dd/MM/yyyy")</p>
+                    <h3>Email</h3>
+                    <p>@Model.Email</p>
+                    <h3>Mobile No</h3>
+                    <p>@Model.MobileNo</p>
+                </div>
+                <!-- Courses Tab Pane -->
+                <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+                    <h2>Courses Enrollments</h2>
+                    <p>List of student courses goes here...</p>
+                </div>
+                <!-- User Accounts Tab Pane -->
+                <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    
+                    @if(Model.User != null)
+                    {
+                        <h2>Username</h2>
+                        <p>@Model.User.UserName</p>
+
+                        <h2>Email</h2>
+                        <p>@Model.User.Email</p>
+
+                        <h2>Password</h2>
+                        <p>@Model.User.Password</p>
+                    }
+                    else
+                    {
+                        <a href="#" class="btn btn-primary">Create Account</a>
+                    }
+
+                </div>
+                <!-- Add more tab panes for additional content -->
+            </div>
+        </div>
     </div>
+
 </div>
+
+<script src="~/lib/bootstrap/dist/js/popper.js"></script>

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcademyWebEF
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Admin + "," + Roles.Student)]
     public class StudentController : Controller
     {
         public IActionResult StudentsList()
@@ -58,6 +58,22 @@ namespace AcademyWebEF
             {
                 //model binding - automatically
 
+                var dbContext = new AcademyDbContext();
+
+                //Create Student User Account
+                User user = new User
+                {
+                    Email = editorModel.Email,
+                    UserName = editorModel.RollNo,
+                    Password = "123456",
+                    Role = Roles.Student
+                };
+                dbContext.Users.Add(user); // give this object to DBContext  to save the data in the database
+
+                dbContext.SaveChanges(); 
+
+
+
                 // create an object of Student Entity Class 
                 Student student = new Student();
                 student.StudentName = editorModel.StudentName;
@@ -66,12 +82,13 @@ namespace AcademyWebEF
                 student.MobileNo = editorModel.Mobile;
                 student.Email = editorModel.Email;
                 student.CourseId = editorModel.CourseID;
+                student.UserId = user.UserId;
 
-                // give this object to DBContext  to save the data in the database
-                var dbContext = new AcademyDbContext();
-                dbContext.Students.Add(student);
+                dbContext.Students.Add(student); // give this object to DBContext  to save the data in the database
 
-                dbContext.SaveChanges(); // generate insert statement
+                dbContext.SaveChanges();
+
+
 
                 return RedirectToAction("StudentsList");
             }
@@ -142,7 +159,10 @@ namespace AcademyWebEF
             var dbContext = new AcademyDbContext();
 
             // get student obj
-            var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
+            var studentObj = dbContext.Students
+                                      .Include(p=>p.Course)
+                                      .Include(p=>p.User)
+                                      .FirstOrDefault(p => p.StudentId == studentId);
 
             return View(studentObj);
         }

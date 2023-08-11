@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZfHNmvK/FT5FFxwNO09Bnxw0ekJYNuWghZUanmnvhJA=",
+  "Hash": "SUx8fxqHGq+3W5Oeb1R7gCRyhle6knk3UK3MIcnwq4w=",
   "Source": "AcademyWebEF",
   "BasePath": "_content/AcademyWebEF",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\img\\Student_Avator.jpg",
+      "SourceId": "AcademyWebEF",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\",
+      "BasePath": "_content/AcademyWebEF",
+      "RelativePath": "img/Student_Avator.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\Student_Avator.jpg"
     },
     {
       "Identity": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\js\\site.js",
@@ -848,6 +865,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Identity": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\lib\\bootstrap\\dist\\js\\popper.js",
+      "SourceId": "AcademyWebEF",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\",
+      "BasePath": "_content/AcademyWebEF",
+      "RelativePath": "lib/bootstrap/dist/js/popper.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\popper.js"
     },
     {
       "Identity": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\lib\\bootstrap\\LICENSE",

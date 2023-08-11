@@ -60,10 +60,15 @@ public partial class AcademyDbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.StudentName).HasMaxLength(100);
+            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Students)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK__Students__Course__34C8D9D1");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Students)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_Students_Users");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -73,6 +78,7 @@ public partial class AcademyDbContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(100);
+            entity.Property(e => e.Role).HasMaxLength(100);
             entity.Property(e => e.UserName).HasMaxLength(100);
         });
 

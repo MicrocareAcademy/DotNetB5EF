@@ -23,7 +23,8 @@ namespace AcademyWebEF.Models
 
         [EmailAddress]
         [StringLength(20)]
-        public string? Email { get; set; }
+        [Required(ErrorMessage = "Please enter email address")]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter date of birth")]
         [Display(Name = "Date Of Birth")]

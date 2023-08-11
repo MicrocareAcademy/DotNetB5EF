@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+@using System.Security.Claims
+@using AcademyWebEF.BusinessEntities
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,19 +36,43 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @{
+                        // Access the user's name claim
+                        var userName = Context.User.FindFirstValue(ClaimTypes.Name);
+
+                        var userId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    }
+
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" 
-                            href="@Url.Action(action:"StudentsList",controller:"Student")">Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"
-                               href="@Url.Action(action:"CoursesList",controller:"Course")">Courses</a>
-                        </li>
+                        @if (User.IsInRole(Roles.Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   href="@Url.Action(action:"StudentsList",controller:"Student")">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   href="@Url.Action(action:"CoursesList",controller:"Course")">Courses</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(Roles.Student))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   href="@Url.Action(action:"StudentRO",controller:"Student",new{studentId = userId})">My Profile</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                   href="#">Enrollments</a>
+                            </li>
+
+                        }
                         <li class="nav-item" style="margin-left:auto;">
+                            <span style="margin-right:10px;">Welcome @userName !</span>
                             <a class="btn btn-danger" style="color:white !important;" href="@Url.Action("Logout","Account")">Logout</a>
                         </li>
                     </ul>

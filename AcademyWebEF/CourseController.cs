@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AcademyWebEF
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Admin)]
     public class CourseController : Controller
     {
         public IActionResult CoursesList()

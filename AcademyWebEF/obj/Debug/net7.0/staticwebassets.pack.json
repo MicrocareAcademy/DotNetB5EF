@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\img\\Student_Avator.jpg",
+      "PackagePath": "staticwebassets\\img\\Student_Avator.jpg"
+    },
+    {
       "Id": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -195,6 +199,10 @@
     {
       "Id": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\lib\\bootstrap\\dist\\js\\popper.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\popper.js"
     },
     {
       "Id": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",

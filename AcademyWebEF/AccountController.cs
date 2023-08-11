@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace AcademyWebEF
 {
@@ -28,7 +30,7 @@ namespace AcademyWebEF
 
                 var dbContext = new AcademyDbContext();
 
-                User userEntity = dbContext.Users
+                User? userEntity = dbContext.Users
                                      .FirstOrDefault(p => p.Email == model.Email && p.Password == model.Password);
 
                 if(userEntity is null)
@@ -41,15 +43,12 @@ namespace AcademyWebEF
 
                 //User is valid and successful login
 
-                string userId = userEntity.UserId.ToString();
-                string userName = userEntity.UserName;
-                string userEmail = userEntity.Email;
-
                 var claims = new List<Claim>
                 { 
-                    new Claim(ClaimTypes.UserData, userId),
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.Email,userEmail)
+                    new Claim(ClaimTypes.NameIdentifier, userEntity.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, userEntity.UserName),
+                    new Claim(ClaimTypes.Email,userEntity.Email),
+                    new Claim(ClaimTypes.Role,userEntity.Role)
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -81,14 +80,6 @@ namespace AcademyWebEF
                 };
 
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,claimPrincipal, authProperties);
-
-                //CookieOptions option = new()
-                //{
-                //    Expires = authProperties.ExpiresUtc
-                //};
-
-                //HttpContext.Response.Cookies.Append("LogInUserCookieKey", userId, option);
-                
 
                 return RedirectToAction("Dashboard", "Home");
             }
