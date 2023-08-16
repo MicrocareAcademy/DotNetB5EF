@@ -30,29 +30,46 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
+    //This middleware catches exceptions thrown in production environment. 
     app.UseExceptionHandler("/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+else
+{
+    //This middleware is used reports app runtime errors in development environment.  
+    app.UseDeveloperExceptionPage();
+}
 
+//This middleware is used to redirects HTTP requests to HTTPS. 
 app.UseHttpsRedirection();
+
+//This middleware is used to returns static files and short-circuits further request processing.  
 app.UseStaticFiles();
 
 app.UseSession();
 
+//This middleware is used to route requests. 
 app.UseRouting();
 
-app.MapControllerRoute(  // router patterns
+// router patterns
+app.MapControllerRoute(  
    name: "default",
    pattern: "{controller=Account}/{action=Login}/{id?}"
 );
 
+//This middleware is used to authenticate a user
+//It looks at who's trying to access your site and checks if they're legit (authenticated) or not
 app.UseAuthentication();
 
+//This middleware is used to authorizes a user to access secure resources. 
 app.UseAuthorization();
 
+//This middleware is used to add Razor Pages endpoints to the request pipeline.
 app.MapRazorPages();
 
 app.Run();

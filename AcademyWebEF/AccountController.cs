@@ -13,7 +13,7 @@ namespace AcademyWebEF
     public class AccountController : Controller
     {
         [HttpGet]
-        public IActionResult Login()
+        public ViewResult Login()
         {
             return View(new LoginModel());
         }
