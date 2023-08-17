@@ -20,7 +20,7 @@ namespace AcademyWebEF
             userService = new UserService();
         }
 
-        public IActionResult StudentsList()
+        public ViewResult StudentsList()
         {
             var students = studentService.FetchStudents();
 

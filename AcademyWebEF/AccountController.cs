@@ -126,11 +126,6 @@ namespace AcademyWebEF
         {
             return View();
         }
-        // COOKIE STATE MANAGEMENT
-        //CookieOptions options = new CookieOptions();
-        //options.Expires = DateTime.Now.AddMinutes(1);
-        //options.Secure = true;
-
-        //Response.Cookies.Append("MyUserKey", model.Email, options);
+        
     }
 }
