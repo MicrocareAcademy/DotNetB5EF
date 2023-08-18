@@ -1,0 +1,17 @@
+﻿@model AcademyWebEF.BusinessEntities.Student
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Information</title>
+</head>
+<body>
+    <h1>Student Information</h1>
+    <p>Name: @Model.StudentName</p>
+    <p>Roll No: @Model.RollNo</p>
+    <hr/>
+    <h2>User Account Details</h2>
+    <p>Username: @Model.User.UserName</p>
+    <p>Password: @Model.User.Password</p>
+</body>
+</html>

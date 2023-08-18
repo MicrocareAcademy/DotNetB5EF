@@ -22,7 +22,7 @@ namespace AcademyWebEF.Models
         public string? Mobile { get; set; }
 
         [EmailAddress]
-        [StringLength(20)]
+        [StringLength(50)]
         [Required(ErrorMessage = "Please enter email address")]
         public string Email { get; set; }
 

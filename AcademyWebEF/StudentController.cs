@@ -1,6 +1,8 @@
 ﻿using AcademyWebEF.BusinessEntities;
 using AcademyWebEF.Models;
 using AcademyWebEF.Services;
+using FluentEmail.Core;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,11 +15,12 @@ namespace AcademyWebEF
     {
         private readonly StudentService studentService;
         private readonly UserService userService;
-
-        public StudentController() //Constructor
+        private readonly IFluentEmailFactory _emailFactory;
+        public StudentController(IFluentEmailFactory emailFactory) //Constructor
         {
             studentService = new StudentService();
             userService = new UserService();
+            _emailFactory = emailFactory;
         }
 
         public ViewResult StudentsList()
@@ -44,7 +47,18 @@ namespace AcademyWebEF
             {
                 var userObj = userService.CreateUser(editorModel.RollNo, "123456", editorModel.Email, Roles.Student);
 
-                studentService.CreateStudent(editorModel, userObj.UserId);
+                var studentObj = studentService.CreateStudent(editorModel, userObj.UserId);
+
+                studentObj.User = userObj;
+
+            //    var email = _emailFactory.Create()
+            //.To(studentObj.Email)
+            //.Subject($"Student: {studentObj.StudentName} account created! User {userObj.UserName}")
+            //.Body($"Hello {studentObj.StudentName},\n\n" +
+            //      $"Your student account has been created!\n" +
+            //      $"Your username: {userObj.UserName}\n" +
+            //      $"Welcome to our system!")
+            //.SendAsync();
 
                 return RedirectToAction("StudentsList");
             }
@@ -89,8 +103,8 @@ namespace AcademyWebEF
 
             // get student obj
             var studentObj = dbContext.Students
-                                      .Include(p=>p.Course)
-                                      .Include(p=>p.User)
+                                      .Include(p => p.Course)
+                                      .Include(p => p.User)
                                       .FirstOrDefault(p => p.StudentId == studentId);
 
             return View(studentObj);

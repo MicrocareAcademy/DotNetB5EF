@@ -1,5 +1,8 @@
 using AcademyWebEF.BusinessEntities;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net.Mail;
+using System.Net;
+using AcademyWebEF.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Enabling Sessions State Management Technique
-builder.Services.AddSession(); 
+builder.Services.AddSession();
 
 // Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -26,6 +29,17 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(Roles.Admin, policy => policy.RequireRole(Roles.Admin));
     options.AddPolicy(Roles.Student, policy => policy.RequireRole(Roles.Student));
 });
+
+//Fluent Email
+string email = "", password = "";
+
+builder.Services.AddFluentEmail(email, "Microcare Academy")
+                .AddSmtpSender(new SmtpClient("smtp.office365.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(email, password)
+                });
 
 var app = builder.Build();
 
@@ -57,7 +71,7 @@ app.UseSession();
 app.UseRouting();
 
 // router patterns
-app.MapControllerRoute(  
+app.MapControllerRoute(
    name: "default",
    pattern: "{controller=Account}/{action=Login}/{id?}"
 );

@@ -7,6 +7,10 @@ namespace AcademyWebEF.Services
 {
     public class StudentService
     {
+        public StudentService()
+        {
+        }
+
         public IList<Student> FetchStudents()
         {
             var dbContext = new AcademyDbContext();
@@ -64,7 +68,7 @@ namespace AcademyWebEF.Services
             dbContext.Students.Add(student); 
 
             dbContext.SaveChanges();
-
+            
             return student;
         }
 

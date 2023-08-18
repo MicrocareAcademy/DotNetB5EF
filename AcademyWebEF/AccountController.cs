@@ -7,14 +7,49 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using AcademyWebEF.Services;
 
 namespace AcademyWebEF
 {
     public class AccountController : Controller
     {
+        
+
         [HttpGet]
-        public ViewResult Login()
+        public ActionResult Login()
         {
+            // Check if the user is already authenticated
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                // while creating claim, we are keeping userid inside claimtype serial number, its just for demo purpose
+                var userId = User.FindFirstValue(ClaimTypes.SerialNumber);
+
+                // if we have an userid then we need to check for role
+                // if role is admin then go to dashboard page 
+                // if roles is student then we need to get student id from user id and then
+                // navigate to student profile page
+
+                if(!string.IsNullOrEmpty(userId))
+                {
+                    if (User.IsInRole(Roles.Admin))
+                    {
+                        return RedirectToAction("Dashboard", "Home");
+                    }
+                    else
+                    {
+                        var dbContext = new AcademyDbContext();
+                        var student = dbContext.Students.FirstOrDefault(p => p.UserId == Convert.ToInt32(userId));
+
+                        if(student != null)
+                        {
+                            return RedirectToAction("StudentRO", "Student", new { studentId = student.StudentId });
+                        }
+                        
+                    }
+                }
+                
+            }
+
             return View(new LoginModel());
         }
 
@@ -63,7 +98,8 @@ namespace AcademyWebEF
                     new Claim(ClaimTypes.NameIdentifier, cliamName),
                     new Claim(ClaimTypes.Name, userEntity.UserName),
                     new Claim(ClaimTypes.Email,userEntity.Email),
-                    new Claim(ClaimTypes.Role,userEntity.Role)
+                    new Claim(ClaimTypes.Role,userEntity.Role),
+                    new Claim(ClaimTypes.SerialNumber,userEntity.UserId.ToString())
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

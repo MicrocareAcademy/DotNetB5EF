@@ -252,3 +252,5 @@ E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\n
 E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\net7.0\FluentEmail.Core.dll
+E:\Microcare-Academy\Courses\Batches\DotNet4\AcademyApp\AcademyWebEF\bin\Debug\net7.0\FluentEmail.Smtp.dll

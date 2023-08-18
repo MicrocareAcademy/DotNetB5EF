@@ -51,7 +51,7 @@ public partial class AcademyDbContext : DbContext
                 .HasColumnType("date")
                 .HasColumnName("DOB");
             entity.Property(e => e.Email)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.MobileNo)
                 .HasMaxLength(20)

@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "5hWj+CmylO4mHkUsEX4S5VCojtvZUgYH4nFcieRHT1a+fx529EoLZP4PSSZTmNNEhBKOs7cP0akMadiAtTDwAA==",
+  "dgSpecHash": "ba7cOdS6Dqn6VsYMBPgK9yQFFPcZkJQB+8Sy+r5QYWGhFoVzswo9/w8NwIlSYJ50QCSKV26oazLvwSo8bPKOMA==",
   "success": true,
   "projectFilePath": "E:\\Microcare-Academy\\Courses\\Batches\\DotNet4\\AcademyApp\\AcademyWebEF\\AcademyWebEF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dell\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\dell\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
+    "C:\\Users\\dell\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
