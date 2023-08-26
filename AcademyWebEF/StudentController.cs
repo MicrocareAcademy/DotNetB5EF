@@ -51,14 +51,14 @@ namespace AcademyWebEF
 
                 studentObj.User = userObj;
 
-            //    var email = _emailFactory.Create()
-            //.To(studentObj.Email)
-            //.Subject($"Student: {studentObj.StudentName} account created! User {userObj.UserName}")
-            //.Body($"Hello {studentObj.StudentName},\n\n" +
-            //      $"Your student account has been created!\n" +
-            //      $"Your username: {userObj.UserName}\n" +
-            //      $"Welcome to our system!")
-            //.SendAsync();
+                var email = _emailFactory.Create()
+                               .To(studentObj.Email)
+                               .Subject($"Student: {studentObj.StudentName} account created! User {userObj.UserName}")
+                               .Body($"Hello {studentObj.StudentName},\n\n" +
+                                     $"Your student account has been created!\n" +
+                                     $"Your username: {userObj.UserName}\n" +
+                                     $"Welcome to our system!")
+                               .SendAsync();
 
                 return RedirectToAction("StudentsList");
             }

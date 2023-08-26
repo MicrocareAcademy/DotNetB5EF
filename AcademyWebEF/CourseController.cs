@@ -1,5 +1,6 @@
 ﻿using AcademyWebEF.BusinessEntities;
 using AcademyWebEF.Models;
+using AcademyWebEF.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,13 +9,16 @@ namespace AcademyWebEF
     [Authorize(Roles = Roles.Admin)]
     public class CourseController : Controller
     {
+        private readonly CourseService courseService;
+
+        public CourseController()
+        {
+            courseService = new CourseService();
+        }
+
         public IActionResult CoursesList()
         {
-            var dbContext = new AcademyDbContext();
-
-            var courses = dbContext.Courses.ToList();
-
-            return View(courses);
+            return View(courseService.GetAllCourses());
         }
 
         public IActionResult Create()
@@ -27,17 +31,8 @@ namespace AcademyWebEF
         {
             if (ModelState.IsValid)
             {
-                Course course = new Course
-                {
-                    CourseTitle = model.CourseTitle,
-                    DurationInDays = model.DurationInDays,
-                    Price = model.Price,
-                    IsActive = model.IsActive
-                };
 
-                var dbContext = new AcademyDbContext();
-                dbContext.Courses.Add(course);
-                dbContext.SaveChanges();
+                courseService.CreateCourse(model);
 
                 return RedirectToAction("CoursesList");
 

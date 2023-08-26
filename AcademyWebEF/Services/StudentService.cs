@@ -7,14 +7,15 @@ namespace AcademyWebEF.Services
 {
     public class StudentService
     {
+        private readonly AcademyDbContext dbContext;
+
         public StudentService()
         {
+            dbContext = new AcademyDbContext();
         }
 
         public IList<Student> FetchStudents()
         {
-            var dbContext = new AcademyDbContext();
-
             return dbContext.Students
                                     .Include(p => p.Course)
                                     .ToList();
@@ -26,7 +27,6 @@ namespace AcademyWebEF.Services
 
             model.Courses = new List<SelectListItem>();
 
-            var dbContext = new AcademyDbContext();
             var courses = dbContext.Courses.ToList(); // we are getting list of course objects from DB
 
             // we are looping through courses and will prepare an object of selectListItem and will
@@ -62,8 +62,6 @@ namespace AcademyWebEF.Services
 
             student.UserId = userId;
 
-            var dbContext = new AcademyDbContext();
-
             // give this object to DBContext  to save the data in the database
             dbContext.Students.Add(student); 
 
@@ -74,8 +72,6 @@ namespace AcademyWebEF.Services
 
         public StudentEditorModel PrepareStudentUpdateModel(int studentId)
         {
-            var dbContext = new AcademyDbContext();
-
             // get student obj
             var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
 
@@ -93,8 +89,6 @@ namespace AcademyWebEF.Services
         }
         public Student UpdateStudent(StudentEditorModel editorModel)
         {
-            var dbContext = new AcademyDbContext();
-
             //fetching the student obj from database
             var studentObj = dbContext.Students.Where(p => p.StudentId == editorModel.StudentID).FirstOrDefault();
 
@@ -114,13 +108,16 @@ namespace AcademyWebEF.Services
 
         public void DeleteOperation(int studentId)
         {
-            var dbContext = new AcademyDbContext();
-
             // get student obj
             var studentObj = dbContext.Students.Where(p => p.StudentId == studentId).FirstOrDefault();
 
             dbContext.Students.Remove(studentObj);
             dbContext.SaveChanges();
+        }
+
+        public Student? GetStudentByUserId(int userId)
+        {
+            return dbContext.Students.FirstOrDefault(p => p.UserId == userId);
         }
     }
 }

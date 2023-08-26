@@ -8,19 +8,33 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using AcademyWebEF.Services;
+using AcademyWebEF.Interfaces;
 
 namespace AcademyWebEF
 {
     public class AccountController : Controller
     {
-        
+        private readonly StudentService studentService;
+        private readonly IUserService userService;
+
+        public AccountController()
+        {
+            studentService = new StudentService();
+            userService = new UserService();
+        }
 
         [HttpGet]
         public ActionResult Login()
         {
+
             // Check if the user is already authenticated
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
+                if (User.IsInRole(Roles.Admin))
+                {
+                    return RedirectToAction("Dashboard", "Home");
+                }
+
                 // while creating claim, we are keeping userid inside claimtype serial number, its just for demo purpose
                 var userId = User.FindFirstValue(ClaimTypes.SerialNumber);
 
@@ -29,32 +43,24 @@ namespace AcademyWebEF
                 // if roles is student then we need to get student id from user id and then
                 // navigate to student profile page
 
-                if(!string.IsNullOrEmpty(userId))
+                if (string.IsNullOrEmpty(userId) == false)
                 {
-                    if (User.IsInRole(Roles.Admin))
-                    {
-                        return RedirectToAction("Dashboard", "Home");
-                    }
-                    else
-                    {
-                        var dbContext = new AcademyDbContext();
-                        var student = dbContext.Students.FirstOrDefault(p => p.UserId == Convert.ToInt32(userId));
+                    var student = studentService.GetStudentByUserId(Convert.ToInt32(userId));
 
-                        if(student != null)
-                        {
-                            return RedirectToAction("StudentRO", "Student", new { studentId = student.StudentId });
-                        }
-                        
+                    if (student != null)
+                    {
+                        return RedirectToAction("StudentRO", "Student", new { studentId = student.StudentId });
                     }
                 }
-                
+
             }
 
             return View(new LoginModel());
         }
 
         [HttpPost]
-        public IActionResult SubmitLogin(LoginModel model)
+        public IActionResult SubmitLogin
+            (LoginModel model)
         {
 
             if (ModelState.IsValid)
@@ -63,10 +69,7 @@ namespace AcademyWebEF
                 // if we have user with user name and password, then user will be redirected to home page
                 // else we will show validation message
 
-                var dbContext = new AcademyDbContext();
-
-                User? userEntity = dbContext.Users
-                                     .FirstOrDefault(p => p.Email == model.Email && p.Password == model.Password);
+                User? userEntity = userService.GetUserByCredentails(model.Email, model.Password);
 
                 if (userEntity is null)
                 {
@@ -85,7 +88,7 @@ namespace AcademyWebEF
                 }
                 else
                 {
-                    student = dbContext.Students.FirstOrDefault(p => p.UserId == userEntity.UserId);
+                    student = studentService.GetStudentByUserId(userEntity.UserId);
 
                     cliamName = student.StudentName;
 
